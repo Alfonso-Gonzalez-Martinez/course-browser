@@ -1,0 +1,65 @@
+.module-container {
+    padding: 1.5rem;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 50px;
+    margin-top: 1.5rem; 
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.356);
+}
+
+.module-container h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #145370;
+}
+
+.module-container h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #145370;
+}
+
+.module-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.module-container li {
+    background-color: #f9f9f9;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #145370;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    cursor: pointer;
+}
+
+.module-container li:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.module-container button {
+    background-color: #007acc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 1rem;
+}
+
+.module-container button:hover {
+    background-color: #005fa3;
+}
+
+.module-container p {
+    font-style: italic;
+    color: #999;
+}

@@ -1,0 +1,87 @@
+.search-bar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 20px;
+}
+
+.home-button {
+    background: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.home-button:hover {
+    transform: scale(1.1);
+    border-radius: 4px;
+    transition: transform 0.3s;
+}
+
+.home-button img {
+    min-width: 33px;
+    height: 33px;
+}
+
+input {
+    padding: 8px;
+    font-size: 1.2rem;
+    width: 400px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+input:disabled{
+    background-color: rgba(231, 229, 229, 0.884);
+}
+
+input:disabled::placeholder {
+    color: #a0a0a0;
+    font-weight: bold;
+    opacity: 1;
+}
+
+.clear-button {
+    padding: 9px 15px;
+    min-width: 120px;
+    background-color: rgba(45, 89, 156, 0.733);
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.288);
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.clear-button:hover {
+    background-color: #9dc5f0;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.clear-button:disabled {
+    background-color: #e0e0e0;
+    color: #a0a0a0;
+    cursor: not-allowed;
+    text-shadow: none;
+}
+
+
+@media (max-width: 600px) {
+    .search-bar-container {
+        flex-wrap: wrap;
+    }
+    input {
+        max-width: 260px;
+    }
+}
+
+@media (max-width: 400px) {
+    input {
+        max-width: 160px;
+    }
+}
