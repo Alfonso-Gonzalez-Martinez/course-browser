@@ -1,7 +1,8 @@
-// src/types/store.ts
 import { EnhancedStore } from '@reduxjs/toolkit';
-import { RootState } from '../app/store'; // Adjust the path as necessary
+import { RootState } from '../app/store';
 
 export interface MockStore extends EnhancedStore<RootState> {
-    getActions: () => any[]; // Adjust the return type if necessary
+    getActions: () => any[];
 }
+
+// Types for the MockStore with the actions. 

@@ -1,7 +1,6 @@
-import React from 'react';
-import { renderWithMockStore } from '../mockStore'; // Adjust the path as necessary
+import ModuleComponent from '../module/Module';
+import { renderWithMockStore } from '../mockStore';
 import { screen, fireEvent } from '@testing-library/react';
-import ModuleComponent from '../module/Module'; // Adjust the path as necessary
 import { setCurrentLesson, setCurrentModule } from '../../features/currentCourseSlice';
 import { setShowCurrentLesson, setShowCurrentCourse } from '../../features/uiSlice';
 import type { CoursesState, uiState, CurrentCourseState, Module, Course } from '../../interfaces/interfaces';
@@ -38,7 +37,7 @@ describe('Course Component', () => {
                     ],
                 },
             ],
-        } as CoursesState, // Type assertion here
+        } as CoursesState,
         currentCourse: {
             currentCourse: {
                 id: 1,
@@ -63,8 +62,8 @@ describe('Course Component', () => {
                         ],
                     },
                 ],
-            } as Course, // Type assertion here
-            currentModule: { title: 'Module 1' } as Module, // Type assertion here
+            } as Course,
+            currentModule: { title: 'Module 1' } as Module,
             currentLesson: null,
         },
         ui: {
@@ -80,7 +79,7 @@ describe('Course Component', () => {
             ...initialState,
             courses: { ...initialState.courses, loading: true },
         };
-        
+
         renderWithMockStore(<ModuleComponent />, loadingState);
         expect(screen.getByText(/loading module details.../i)).toBeInTheDocument();
     });

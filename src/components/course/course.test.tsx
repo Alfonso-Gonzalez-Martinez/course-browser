@@ -1,10 +1,9 @@
-import React from 'react';
-import { renderWithMockStore } from '../mockStore'; // Adjust the path as necessary
+import { renderWithMockStore } from '../mockStore';
 import { screen, fireEvent } from '@testing-library/react';
-import CourseComponent from './Course'; // Adjust the path as necessary
+import CourseComponent from './Course';
 import { setCurrentModule, setCurrentCourse } from '../../features/currentCourseSlice';
 import { setShowCurrentModule, showCourses } from '../../features/uiSlice';
-import type { CoursesState, uiState, CurrentCourseState, Module, Course } from '../../interfaces/interfaces';
+import type { CoursesState, uiState, CurrentCourseState, Course } from '../../interfaces/interfaces';
 
 describe('Course Component', () => {
     const initialState = {
@@ -80,7 +79,7 @@ describe('Course Component', () => {
             ...initialState,
             courses: { ...initialState.courses, loading: true },
         };
-        
+
         renderWithMockStore(<CourseComponent />, loadingState);
         expect(screen.getByText(/loading course details.../i)).toBeInTheDocument();
     });

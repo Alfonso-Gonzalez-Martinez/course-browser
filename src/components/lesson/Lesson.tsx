@@ -17,16 +17,12 @@ function Lesson() {
         dispatch(setShowCurrentModule())
     }
 
-    if (!lesson) {
-        return <div>No lesson found.</div>; // Or any fallback message
-    }
-
 
     return (
         <>
             {loading && <p>Loading lesson details...</p>}
             {error && <p>Error: {error}</p>}
-            {showCurrentLesson && lesson && 
+            {showCurrentLesson && lesson &&
                 <div className="lesson-container">
                     <h2>{lesson.title}</h2>
                     <p>{lesson.description}</p>
@@ -38,7 +34,7 @@ function Lesson() {
                     </ul>
                     <h3>Content:</h3>
                     {lesson.content?.map((item: Content, index) => {
-                         switch (item.type) {
+                         switch (item.type) { // Switch for the data types to be rendered. 
                             case "text":
                                 return <p key={index}>{item.data}</p>;
                             case "video":

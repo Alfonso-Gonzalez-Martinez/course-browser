@@ -76,36 +76,35 @@ describe('SearchBar Component', () => {
 
     test('clears search and dispatches home actions when Clear Search is clicked', () => {
         const updatedInitialState = {
-            courses: { 
-                courses: [], 
-                loading: false, 
-                error: null, 
-                searchTerm: 'React' 
+            courses: {
+                courses: [],
+                loading: false,
+                error: null,
+                searchTerm: 'React'
             },
-            currentCourse: { 
-                currentCourse: null, 
-                currentModule: null, 
-                currentLesson: null 
+            currentCourse: {
+                currentCourse: null,
+                currentModule: null,
+                currentLesson: null
             },
-            ui: { 
-                showCourseList: true, // Input should be enabled 
-                showCurrentCourse: false, 
-                showCurrentModule: false, 
-                showCurrentLesson: false 
+            ui: {
+                showCourseList: true,
+                showCurrentCourse: false,
+                showCurrentModule: false,
+                showCurrentLesson: false
             },
         };
-        
+
         const { store } = renderWithMockStore(<SearchBar />, updatedInitialState);
-        
+
         const clearButton = screen.getByRole('button', { name: /clear search/i });
         fireEvent.click(clearButton);
 
-        // Verify state after clear search button click
         const state = store.getState();
-        expect(state.courses.searchTerm).toBe(''); // Search term should be cleared
-        expect(state.currentCourse.currentCourse).toBe(null); // Should reset current course
-        expect(state.currentCourse.currentModule).toBe(null); // Should reset current module
-        expect(state.currentCourse.currentLesson).toBe(null); // Should reset current lesson
+        expect(state.courses.searchTerm).toBe('');
+        expect(state.currentCourse.currentCourse).toBe(null);
+        expect(state.currentCourse.currentModule).toBe(null);
+        expect(state.currentCourse.currentLesson).toBe(null);
     });
 });
 

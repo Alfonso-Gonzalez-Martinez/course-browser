@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { uiState } from '../interfaces/interfaces'
 
-const initialState: uiState = {
+const initialState: uiState = { // Begin with an overview of the courses
     showCourseList: true,
     showCurrentCourse: false,
     showCurrentModule: false,
     showCurrentLesson: false,
 }
 
-export const uiSlice = createSlice({
+export const uiSlice = createSlice({ // We use it to "switch" the component that is being displayed.
     name: 'ui',
     initialState,
     reducers: {

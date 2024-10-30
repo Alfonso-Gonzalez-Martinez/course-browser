@@ -15,3 +15,5 @@ export const selectFilteredCourses = createSelector(
         );
     }
 );
+
+// Memoized courses in relation to courses and searchTerm.

@@ -1,5 +1,4 @@
-// coursesSlice.test.ts
-import { configureStore } from '@reduxjs/toolkit'; // Importing from @reduxjs/toolkit for better store configuration
+import { configureStore } from '@reduxjs/toolkit';
 import coursesReducer, { setSearchTerm, resetSearchTerm, fetchCourses } from './coursesSlice';
 
 describe('coursesSlice', () => {
@@ -63,7 +62,7 @@ describe('coursesSlice', () => {
         });
     });
 
-    test('should fetch courses successfully', async () => {
+    test('fetch courses successfully', async () => {
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 ok: true,

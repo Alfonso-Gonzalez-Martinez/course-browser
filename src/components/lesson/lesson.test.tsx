@@ -1,7 +1,6 @@
-import React from 'react';
-import { renderWithMockStore } from '../mockStore'; // Adjust the path as necessary
+import LessonComponent from '../lesson/Lesson';
+import { renderWithMockStore } from '../mockStore';
 import { screen, fireEvent } from '@testing-library/react';
-import LessonComponent from '../lesson/Lesson'; // Adjust the path as necessary
 import { setCurrentLesson } from '../../features/currentCourseSlice';
 import { setShowCurrentModule } from '../../features/uiSlice';
 import type { CoursesState, uiState, CurrentCourseState, Module, Lesson } from '../../interfaces/interfaces';
@@ -107,18 +106,5 @@ describe('Lesson Component', () => {
         const actions = store.getActions();
         expect(actions).toContainEqual(setCurrentLesson(null));
         expect(actions).toContainEqual(setShowCurrentModule());
-    });
-
-    test('renders no lesson found when lesson does not exist', () => {
-        const noLessonState = {
-            ...initialState,
-            currentCourse: {
-                ...initialState.currentCourse,
-                currentLesson: null,
-            },
-        };
-
-        renderWithMockStore(<LessonComponent />, noLessonState);
-        expect(screen.getByText(/no lesson found/i)).toBeInTheDocument();
     });
 });

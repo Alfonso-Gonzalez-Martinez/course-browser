@@ -27,7 +27,7 @@ function Module() {
         <>
             {loading && <p>Loading module details...</p>}
             {error && <p>Error: {error}</p>}
-            {showCurrentModule && module && 
+            {showCurrentModule && module &&
                 <div className="module-container">
                     <h2>{module?.title}</h2>
                     <h3>Lessons:</h3>

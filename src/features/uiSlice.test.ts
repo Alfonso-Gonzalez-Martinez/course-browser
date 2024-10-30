@@ -9,7 +9,7 @@ describe('uiSlice', () => {
         showCurrentLesson: false,
     };
 
-    test('should return the initial state when passed an empty action', () => {
+    test('return the initial state when passed an empty action', () => {
         const result = uiReducer(undefined, { type: '' });
         expect(result).toEqual(initialState);
     });

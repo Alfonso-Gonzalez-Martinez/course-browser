@@ -11,7 +11,7 @@ function SearchBar(){
     const dispatch = useAppDispatch()
     const searchTerm = useAppSelector((state) => state.courses.searchTerm);
     const showCourseList = useAppSelector((state) => state.ui.showCourseList);
-    const handleHomeClick = () => {
+    const handleHomeClick = () => { // Reset the states.
         dispatch(setCurrentLesson(null));
         dispatch(setCurrentCourse(null));
         dispatch(setCurrentModule(null));
@@ -20,7 +20,7 @@ function SearchBar(){
     }
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setSearchTerm(event.target.value));
+        dispatch(setSearchTerm(event.target.value)); // Filter the courses with each key stroke.
     };
 
     return(

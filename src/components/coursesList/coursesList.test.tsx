@@ -1,11 +1,8 @@
-import React from 'react';
-import { renderWithMockStore } from '../mockStore'; // Adjust the path as necessary
-import { screen, fireEvent } from '@testing-library/react';
-import CoursesList from '../coursesList/CoursesList'; // Adjust the path as necessary
-import { setCurrentCourse } from '../../features/currentCourseSlice';
-import { setShowCurrentCourse } from '../../features/uiSlice';
-import type { Course } from '../../interfaces/interfaces'; // Import the Course type
-import type { CoursesState, CurrentCourseState, uiState } from '../../interfaces/interfaces'; // Import your state types
+import { renderWithMockStore } from '../mockStore';
+import { screen } from '@testing-library/react';
+import CoursesList from '../coursesList/CoursesList';
+import type { Course } from '../../interfaces/interfaces';
+import type { CoursesState, CurrentCourseState, uiState } from '../../interfaces/interfaces';
 
 describe('CoursesList Component', () => {
     const initialState = {
@@ -23,16 +20,16 @@ describe('CoursesList Component', () => {
                     title: 'Course 2',
                     description: 'Description for Course 2',
                 },
-            ] as Course[], // Ensure courses is typed as an array of Course
-        } as CoursesState, // Type the courses state
+            ] as Course[],
+        } as CoursesState,
         currentCourse: {
-            currentCourse: null, // Set to null or a valid course if needed
-            currentModule: null, // Set to null or a valid module if needed
-            currentLesson: null, // Set to null or a valid lesson if needed
-        } as CurrentCourseState, // Type the current course state
+            currentCourse: null,
+            currentModule: null,
+            currentLesson: null,
+        } as CurrentCourseState,
         ui: {
             showCourseList: true,
-        } as uiState, // Type the UI state
+        } as uiState,
     };
 
     test('renders loading state', () => {

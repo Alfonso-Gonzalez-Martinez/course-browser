@@ -13,3 +13,5 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+// Redux store, manage all the reducers. 

@@ -8,7 +8,7 @@ const initialState: CurrentCourseState = {
   };
 
 
-export const currentCourseSlice = createSlice({
+export const currentCourseSlice = createSlice({ // We use it to manage the browsing state.
     name: 'currentCourse',
     initialState,
     reducers: {
