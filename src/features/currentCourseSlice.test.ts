@@ -1,5 +1,5 @@
 import currentCourseReducer, { setCurrentCourse, setCurrentModule, setCurrentLesson } from './currentCourseSlice';
-import type { CurrentCourseState } from '../interfaces/interfaces';
+import type { CurrentCourseState, Course, Module, Lesson } from '../interfaces/interfaces';
 
 describe('currentCourseSlice', () => {
     const initialState: CurrentCourseState = {
@@ -14,7 +14,12 @@ describe('currentCourseSlice', () => {
     });
 
     test('handle setCurrentCourse action', () => {
-        const course = { id: '1', title: 'Course 1' };
+        const course: Course = {
+            id: 1,
+            title: 'Course Title',
+            description: 'A short description of the course.',
+            modules: [],
+          };
         const result = currentCourseReducer(initialState, setCurrentCourse(course));
         expect(result).toEqual({
             currentCourse: course,
@@ -24,7 +29,7 @@ describe('currentCourseSlice', () => {
     });
 
     test('handle setCurrentModule action', () => {
-        const module = { title: 'Module 1' };
+        const module: Module = { title: 'Module 1', lessons: [] };
         const result = currentCourseReducer(initialState, setCurrentModule(module));
         expect(result).toEqual({
             currentCourse: null,
@@ -34,7 +39,12 @@ describe('currentCourseSlice', () => {
     });
 
     test('handle setCurrentLesson action', () => {
-        const lesson = { title: 'Lesson 1' };
+        const lesson: Lesson = {
+            title: 'Lesson 1',
+            description: 'Description for lesson 1',
+            topics: ['Topic 1'],
+            content: [{ type: 'text', data: 'Some content' }]
+        };
         const result = currentCourseReducer(initialState, setCurrentLesson(lesson));
         expect(result).toEqual({
             currentCourse: null,

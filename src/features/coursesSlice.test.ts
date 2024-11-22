@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import coursesReducer, { setSearchTerm, resetSearchTerm, fetchCourses } from './coursesSlice';
+import coursesSliceReducer, { setSearchTerm, resetSearchTerm, fetchCourses } from './coursesSlice';
+import type { Course } from '../interfaces/interfaces';
 
 describe('coursesSlice', () => {
     const initialState = {
@@ -9,14 +10,18 @@ describe('coursesSlice', () => {
         searchTerm: '',
     };
 
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
     test('return the initial state when passed an empty action', () => {
-        const result = coursesReducer(undefined, { type: '' });
+        const result = coursesSliceReducer(undefined, { type: '' });
         expect(result).toEqual(initialState);
     });
 
     test('handle setSearchTerm action', () => {
         const searchTerm = 'React';
-        const result = coursesReducer(initialState, setSearchTerm(searchTerm));
+        const result = coursesSliceReducer(initialState, setSearchTerm(searchTerm));
         expect(result).toEqual({
             ...initialState,
             searchTerm,
@@ -28,12 +33,12 @@ describe('coursesSlice', () => {
             ...initialState,
             searchTerm: 'React',
         };
-        const result = coursesReducer(modifiedState, resetSearchTerm());
+        const result = coursesSliceReducer(modifiedState, resetSearchTerm());
         expect(result).toEqual(initialState);
     });
 
     test('handle fetchCourses.pending action', () => {
-        const result = coursesReducer(initialState, { type: fetchCourses.pending.type });
+        const result = coursesSliceReducer(initialState, { type: fetchCourses.pending.type });
         expect(result).toEqual({
             ...initialState,
             loading: true,
@@ -42,8 +47,8 @@ describe('coursesSlice', () => {
     });
 
     test('handle fetchCourses.fulfilled action', () => {
-        const courses = [{ id: '1', title: 'Course 1' }];
-        const result = coursesReducer(initialState, { type: fetchCourses.fulfilled.type, payload: courses });
+        const courses: Course[] = [{ id: 1, title: 'Course 1', description: 'Description for course 1', modules: [] }];
+        const result = coursesSliceReducer(initialState, { type: fetchCourses.fulfilled.type, payload: courses });
         expect(result).toEqual({
             loading: false,
             error: null,
@@ -54,7 +59,7 @@ describe('coursesSlice', () => {
 
     test('handle fetchCourses.rejected action', () => {
         const errorMessage = 'Failed to fetch the courses';
-        const result = coursesReducer(initialState, { type: fetchCourses.rejected.type, error: { message: errorMessage } });
+        const result = coursesSliceReducer(initialState, { type: fetchCourses.rejected.type, error: { message: errorMessage } });
         expect(result).toEqual({
             ...initialState,
             loading: false,
@@ -66,20 +71,19 @@ describe('coursesSlice', () => {
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 ok: true,
-                json: () => Promise.resolve([{ id: '1', title: 'Course 1' }]),
+                json: () => Promise.resolve<Course[]>([{  id: 1, title: 'Course 1', description: 'A course description', modules: [] }]),
             })
         ) as jest.Mock;
 
 
         const store = configureStore({
-            reducer: { courses: coursesReducer },
+            reducer: { courses: coursesSliceReducer },
         });
 
-
-        await store.dispatch(fetchCourses() as any);
+        await store.dispatch(fetchCourses());
 
         const state = store.getState().courses;
-        expect(state.courses).toEqual([{ id: '1', title: 'Course 1' }]);
+        expect(state.courses).toEqual([{  id: 1, title: 'Course 1', description: 'A course description', modules: [] }]);
         expect(state.loading).toBe(false);
         expect(state.error).toBe(null);
     });
@@ -93,10 +97,10 @@ describe('coursesSlice', () => {
         ) as jest.Mock;
 
         const store = configureStore({
-            reducer: { courses: coursesReducer },
+            reducer: { courses: coursesSliceReducer },
         });
 
-        await store.dispatch(fetchCourses() as any);
+        await store.dispatch(fetchCourses());
 
         const state = store.getState().courses;
         expect(state.courses).toEqual([]);

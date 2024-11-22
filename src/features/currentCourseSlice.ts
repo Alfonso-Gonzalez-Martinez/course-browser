@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { CurrentCourseState } from '../interfaces/interfaces'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { CurrentCourseState, Course, Module, Lesson } from '../interfaces/interfaces'
 
 const initialState: CurrentCourseState = {
     currentCourse: null,
@@ -8,17 +8,17 @@ const initialState: CurrentCourseState = {
   };
 
 
-export const currentCourseSlice = createSlice({ // We use it to manage the browsing state.
+export const currentCourseSlice = createSlice({
     name: 'currentCourse',
     initialState,
     reducers: {
-        setCurrentCourse: (state, action) => {
+        setCurrentCourse: (state: CurrentCourseState, action: PayloadAction<Course | null>) => {
             state.currentCourse = action.payload
         },
-        setCurrentModule: (state, action) => {
+        setCurrentModule: (state: CurrentCourseState, action: PayloadAction<Module | null>) => {
             state.currentModule = action.payload
         },
-        setCurrentLesson: (state, action) => {
+        setCurrentLesson: (state: CurrentCourseState, action: PayloadAction<Lesson | null>) => {
             state.currentLesson = action.payload
         }
     },

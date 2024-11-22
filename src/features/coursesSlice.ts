@@ -9,26 +9,30 @@
         searchTerm: '',
     };
 
-    export const fetchCourses = createAsyncThunk<Course[]>(
+    export const fetchCourses = createAsyncThunk<Course[], void, {rejectValue: string}>(
         'courses/fetchCourses',
-        async () => {
+        async (_, { rejectWithValue }) => {
+          try {
             const response = await fetch(`${process.env.PUBLIC_URL}/courses.json`);
-            if(!response.ok){
-                throw new Error("Failed to fetch the courses")
+            if (!response.ok) {
+              throw new Error("Failed to fetch the courses");
             }
             const data = await response.json();
-            return data
+            return data;
+          } catch (error) {
+            return rejectWithValue('Failed to fetch the courses');
+          }
         }
-    )
+      );
 
-    export const coursesSlice = createSlice({ // Initial fetch and filtered search reducers.
-        name: 'courses',
+    export const coursesSlice = createSlice({
+        name: 'courseCatalog',
         initialState,
         reducers: {
-            setSearchTerm: (state, action: PayloadAction<string>) => {
+            setSearchTerm: (state: CoursesState, action: PayloadAction<string>) => {
                 state.searchTerm = action.payload;
             },
-            resetSearchTerm: (state) => {
+            resetSearchTerm: (state: CoursesState) => {
                 state.searchTerm = '';
             }
         },
@@ -44,7 +48,7 @@
                 })
                 .addCase(fetchCourses.rejected, (state, action) => {
                     state.loading = false;
-                    state.error = action.error.message || 'Failed to fetch the courses';
+                    state.error = action.payload || action.error.message || 'Failed to fetch the courses';
                 })
         }
     })

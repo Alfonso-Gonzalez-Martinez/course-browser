@@ -6,7 +6,7 @@ import Module from './components/module/Module'
 import Lesson from './components/lesson/Lesson'
 
 
-function App() {
+const App: React.FC = (): JSX.Element => {
 
 
   return (

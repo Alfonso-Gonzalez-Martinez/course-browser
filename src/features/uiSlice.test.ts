@@ -60,6 +60,9 @@ describe('uiSlice', () => {
             showCurrentLesson: true,
         });
     });
-});
 
-export {};
+    test('should return the initial state if no valid action type is passed', () => {
+        const result = uiReducer(initialState, { type: 'unknownAction' });
+        expect(result).toEqual(initialState);
+      });
+});

@@ -7,7 +7,7 @@ import type { Lesson } from '../../interfaces/interfaces'
 function Module() {
 
     const { showCurrentModule } = useAppSelector((state) => state.ui)
-    const { loading, error } = useAppSelector((state) => state.courses);
+    const { loading, error } = useAppSelector((state) => state.courseCatalog);
     const { currentCourse, currentModule } = useAppSelector((state) => state.currentCourse)
     const dispatch = useAppDispatch();
 

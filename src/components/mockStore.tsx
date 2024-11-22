@@ -2,11 +2,12 @@ import React from 'react';
 import { configureStore, Middleware } from '@reduxjs/toolkit';
 import { render, RenderResult } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import type { RootState } from '../app/store';
 import coursesReducer from '../features/coursesSlice';
 import currentCourseReducer from '../features/currentCourseSlice';
 import uiReducer from '../features/uiSlice';
 import { MockStore } from './storeTypes';
+import type { RootState } from '../app/store';
+
 
 export const createMockStore = (initialState?: RootState): MockStore => {
     const actions: any[] = [];
@@ -18,7 +19,7 @@ export const createMockStore = (initialState?: RootState): MockStore => {
 
     const store = configureStore({
         reducer: {
-            courses: coursesReducer,
+            courseCatalog: coursesReducer,
             currentCourse: currentCourseReducer,
             ui: uiReducer,
         },

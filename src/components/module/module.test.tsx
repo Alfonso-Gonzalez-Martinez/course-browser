@@ -7,7 +7,7 @@ import type { CoursesState, uiState, CurrentCourseState, Module, Course } from '
 
 describe('Course Component', () => {
     const initialState = {
-        courses: {
+        courseCatalog: {
             loading: false,
             error: null,
             searchTerm: '',
@@ -72,26 +72,30 @@ describe('Course Component', () => {
             showCurrentModule: true,
             showCurrentLesson: false,
         },
-    } as { courses: CoursesState; currentCourse: CurrentCourseState; ui: uiState };
+    } as { courseCatalog: CoursesState; currentCourse: CurrentCourseState; ui: uiState };
 
-    test('renders loading state', () => {
+    test('renders loading state', async () => {
         const loadingState = {
             ...initialState,
-            courses: { ...initialState.courses, loading: true },
+            courseCatalog: { ...initialState.courseCatalog, loading: true },
         };
 
         renderWithMockStore(<ModuleComponent />, loadingState);
-        expect(screen.getByText(/loading module details.../i)).toBeInTheDocument();
+
+        const loadingMessage = await screen.findByText(/loading module details.../i)
+        expect(loadingMessage).toBeInTheDocument();
     });
 
-    test('renders error message', () => {
+    test('renders error message', async () => {
         const errorState = {
             ...initialState,
-            courses: { ...initialState.courses, error: 'Failed to load' },
+            courseCatalog: { ...initialState.courseCatalog, error: 'Failed to load' },
         };
 
         renderWithMockStore(<ModuleComponent />, errorState);
-        expect(screen.getByText(/error: failed to load/i)).toBeInTheDocument();
+
+        const errorMessage = await screen.findByText(/error: failed to load/i)
+        expect(errorMessage).toBeInTheDocument();
     });
 
     test('renders module details when showCurrentModule is true', () => {

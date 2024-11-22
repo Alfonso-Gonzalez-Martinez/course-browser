@@ -9,9 +9,9 @@ import homeIcon from '../../assets/home-icon.webp';
 function SearchBar(){
 
     const dispatch = useAppDispatch()
-    const searchTerm = useAppSelector((state) => state.courses.searchTerm);
+    const searchTerm = useAppSelector((state) => state.courseCatalog.searchTerm);
     const showCourseList = useAppSelector((state) => state.ui.showCourseList);
-    const handleHomeClick = () => { // Reset the states.
+    const handleHomeClick = () => {
         dispatch(setCurrentLesson(null));
         dispatch(setCurrentCourse(null));
         dispatch(setCurrentModule(null));
@@ -20,7 +20,7 @@ function SearchBar(){
     }
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setSearchTerm(event.target.value)); // Filter the courses with each key stroke.
+        dispatch(setSearchTerm(event.target.value));
     };
 
     return(
@@ -35,8 +35,11 @@ function SearchBar(){
                 onChange={handleSearchChange}
                 disabled={!showCourseList}
             />
-            <button className="clear-button" onClick={() => {
-                if(searchTerm) handleHomeClick()}}
+            <button className="clear-button"
+                onClick={() => {
+                    if(searchTerm)
+                        handleHomeClick()
+                }}
                 disabled={!searchTerm}
                 >
                     Clear Search

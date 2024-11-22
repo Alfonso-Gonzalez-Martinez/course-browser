@@ -4,10 +4,10 @@ import { setCurrentModule, setCurrentCourse } from '../../features/currentCourse
 import { setShowCurrentModule, showCourses } from '../../features/uiSlice';
 import type { Module } from '../../interfaces/interfaces'
 
-function Course() {
+const Course: React.FC = (): JSX.Element => {
 
     const { showCurrentCourse } = useAppSelector((state) => state.ui)
-    const { courses, loading, error } = useAppSelector((state) => state.courses);
+    const { courses, loading, error } = useAppSelector((state) => state.courseCatalog);
     const { currentCourse } = useAppSelector((state) => state.currentCourse)
     const dispatch = useAppDispatch();
 
@@ -32,7 +32,7 @@ function Course() {
                     <h2>{course?.title}</h2>
                     <p>{course?.description}</p>
                     <h3>Modules:</h3>
-                    <ul>
+                    <ul data-testid="modules-list">
                         {course?.modules.map((module) => (
                             <li key={module.title} onClick={() => handleModuleClick(module)}>
                                 {module.title}

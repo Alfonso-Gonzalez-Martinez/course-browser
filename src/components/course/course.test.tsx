@@ -7,7 +7,7 @@ import type { CoursesState, uiState, CurrentCourseState, Course } from '../../in
 
 describe('Course Component', () => {
     const initialState = {
-        courses: {
+        courseCatalog: {
             loading: false,
             error: null,
             searchTerm: '',
@@ -72,26 +72,44 @@ describe('Course Component', () => {
             showCurrentModule: false,
             showCurrentLesson: false,
         },
-    } as { courses: CoursesState; currentCourse: CurrentCourseState; ui: uiState };
+    } as { courseCatalog: CoursesState; currentCourse: CurrentCourseState; ui: uiState };
 
-    test('renders loading state', () => {
+
+    test('renders nothing when there are no courses', () => {
+        const emptyState = { ...initialState, courseCatalog: { ...initialState.courseCatalog, courses: [] } };
+
+        renderWithMockStore(<CourseComponent />, emptyState);
+        expect(screen.queryByText(/course 1/i)).toBeNull();
+    });
+
+    test('does not render course details when currentCourse is null', () => {
+        const emptyCurrentCourseState = { ...initialState, currentCourse: { currentCourse: null, currentModule: null, currentLesson: null } };
+
+        renderWithMockStore(<CourseComponent />, emptyCurrentCourseState);
+        expect(screen.queryByText(/course 1/i)).toBeNull();
+    });
+
+    test('renders loading state', async () => {
         const loadingState = {
             ...initialState,
-            courses: { ...initialState.courses, loading: true },
+            courseCatalog: { ...initialState.courseCatalog, loading: true },
         };
 
         renderWithMockStore(<CourseComponent />, loadingState);
-        expect(screen.getByText(/loading course details.../i)).toBeInTheDocument();
+
+            const loadingText = await screen.findByText("Loading course details...");
+            expect(loadingText).toBeInTheDocument()
     });
 
-    test('renders error message', () => {
+    test('renders error message', async () => {
         const errorState = {
             ...initialState,
-            courses: { ...initialState.courses, error: 'Failed to load' },
+            courseCatalog: { ...initialState.courseCatalog, error: 'Failed to load' },
         };
 
         renderWithMockStore(<CourseComponent />, errorState);
-        expect(screen.getByText(/error: failed to load/i)).toBeInTheDocument();
+            const errorMessage = await screen.findByText('Error: Failed to load');
+            expect(errorMessage).toBeInTheDocument();
     });
 
     test('renders course details when showCurrentCourse is true', () => {
@@ -104,9 +122,20 @@ describe('Course Component', () => {
         expect(screen.getByText(/lesson 2/i)).toBeInTheDocument();
     });
 
+    test('does not render modules if modules array is empty', () => {
+        const noModulesState = { ...initialState, courseCatalog: { ...initialState.courseCatalog, courses: [{ ...initialState.courseCatalog.courses[0], modules: [] }] } };
+
+        renderWithMockStore(<CourseComponent />, noModulesState);
+        const modulesList = screen.queryByTestId('modules-list');
+
+        expect(modulesList).toBeInTheDocument();
+        expect(modulesList).toBeEmptyDOMElement();
+    });
+
     test('dispatches setCurrentModule on module click', () => {
         const { store } = renderWithMockStore(<CourseComponent />, initialState);
         const module1 = screen.getByText(/module 1/i);
+
         fireEvent.click(module1);
 
         const actions = store.getActions();

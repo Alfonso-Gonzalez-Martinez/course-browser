@@ -5,7 +5,7 @@ import SearchBar from './SearchBar';
 
 describe('SearchBar Component', () => {
     const initialState = {
-        courses: {
+        courseCatalog: {
             courses: [],
             loading: false,
             error: null,
@@ -42,7 +42,7 @@ describe('SearchBar Component', () => {
 
         fireEvent.change(searchInput, { target: { value: 'React' } });
 
-        expect(store.getState().courses.searchTerm).toBe('React');
+        expect(store.getState().courseCatalog.searchTerm).toBe('React');
         expect(searchInput).toHaveValue('React');
     });
 
@@ -56,7 +56,7 @@ describe('SearchBar Component', () => {
         expect(state.currentCourse.currentCourse).toBe(null);
         expect(state.currentCourse.currentModule).toBe(null);
         expect(state.currentCourse.currentLesson).toBe(null);
-        expect(state.courses.searchTerm).toBe('');
+        expect(state.courseCatalog.searchTerm).toBe('');
         expect(state.ui.showCourseList).toBe(true);
     });
 
@@ -76,7 +76,7 @@ describe('SearchBar Component', () => {
 
     test('clears search and dispatches home actions when Clear Search is clicked', () => {
         const updatedInitialState = {
-            courses: {
+            courseCatalog: {
                 courses: [],
                 loading: false,
                 error: null,
@@ -101,7 +101,7 @@ describe('SearchBar Component', () => {
         fireEvent.click(clearButton);
 
         const state = store.getState();
-        expect(state.courses.searchTerm).toBe('');
+        expect(state.courseCatalog.searchTerm).toBe('');
         expect(state.currentCourse.currentCourse).toBe(null);
         expect(state.currentCourse.currentModule).toBe(null);
         expect(state.currentCourse.currentLesson).toBe(null);

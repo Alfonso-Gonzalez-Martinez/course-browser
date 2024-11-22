@@ -5,7 +5,7 @@ import uiReducer from '../features/uiSlice'
 
 export const store = configureStore({
     reducer: {
-        courses: coursesReducer,
+        courseCatalog: coursesReducer,
         currentCourse: currentCourseReducer,
         ui: uiReducer,
     },
@@ -13,5 +13,4 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
-
-// Redux store, manage all the reducers. 
+export type AppStore = typeof store;

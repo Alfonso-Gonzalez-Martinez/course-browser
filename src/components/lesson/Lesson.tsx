@@ -6,7 +6,7 @@ import type { Content } from '../../interfaces/interfaces';
 
 function Lesson() {
     const { showCurrentLesson } = useAppSelector((state) => state.ui);
-    const { loading, error } = useAppSelector((state) => state.courses);
+    const { loading, error } = useAppSelector((state) => state.courseCatalog);
     const { currentModule, currentLesson } = useAppSelector((state) => state.currentCourse);
     const dispatch = useAppDispatch();
 
